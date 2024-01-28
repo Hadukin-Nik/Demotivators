@@ -195,15 +195,15 @@ ALTER TABLE public.memes OWNER TO postgres;
 --
 
 CREATE TABLE public.users (
-    "User_id" bigint NOT NULL,
-    "Name" text NOT NULL,
-    "Nickname" text NOT NULL,
-    "Telephone" text,
-    "RegistrationDate" date,
-    "Role" bigint NOT NULL,
-    "Login" text NOT NULL,
-    "Password" text NOT NULL,
-    "Image" character(60)
+    "id" serial primary key,
+    "name" text NOT NULL,
+    "nickname" text NOT NULL,
+    "telephone" text,
+    "registration_date" date,
+    "role" bigint NOT NULL,
+    "login" text NOT NULL,
+    "password" text NOT NULL,
+    "image" character(60)
 );
 
 
@@ -240,15 +240,6 @@ ALTER TABLE ONLY public.comments
 
 ALTER TABLE ONLY public.memes
     ADD CONSTRAINT memes_pkey PRIMARY KEY ("Mem_id");
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY ("User_id");
-
 
 --
 -- PostgreSQL database dump complete
