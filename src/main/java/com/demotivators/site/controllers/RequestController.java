@@ -3,9 +3,10 @@ package com.demotivators.site.controllers;
 import com.demotivators.site.dto.RequestDTO;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/requests")
+@RestController()
+@RequestMapping("/requests")
 public class RequestController {
-    @GetMapping("/")
+    @GetMapping
     public void showRequests() {}
 
     @GetMapping("/friends")

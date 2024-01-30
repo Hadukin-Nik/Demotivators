@@ -1,19 +1,17 @@
 package com.demotivators.site.controllers;
 
 import com.demotivators.site.dto.UserRegisterDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/hello")
+@RestController()
+@RequestMapping("/hello")
 public class HelloController {
-    @GetMapping("/")
+    @GetMapping
     public void showLogInPage() {
 
     }
 
-    @PostMapping(value = "/", consumes =  "application/json")
+    @PostMapping(consumes =  "application/json")
     public void authenticateUser(@RequestBody UserRegisterDTO userRegisterDTO) {
 
     }

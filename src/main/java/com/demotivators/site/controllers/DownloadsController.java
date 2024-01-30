@@ -1,17 +1,15 @@
 package com.demotivators.site.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/downloads")
+@RestController()
+@RequestMapping("/downloads")
 public class DownloadsController {
-    @GetMapping("/")
+    @GetMapping
     public void showDownloads() {
         System.out.println("showDownloadWorking");
     }
 
-    @PostMapping(value = "/", consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public void createDownload(@RequestBody DownloadsController downloadsController) {}
 }
