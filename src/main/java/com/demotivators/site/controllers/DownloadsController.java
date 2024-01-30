@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/downloads")
 public class DownloadsController {
-    @GetMapping()
-    public void showDownloads() {}
+    @GetMapping("/")
+    public void showDownloads() {
+        System.out.println("showDownloadWorking");
+    }
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping(value = "/", consumes = "application/json")
     public void createDownload(@RequestBody DownloadsController downloadsController) {}
 }

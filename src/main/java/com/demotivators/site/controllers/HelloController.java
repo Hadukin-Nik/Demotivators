@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/hello")
 public class HelloController {
-    @GetMapping()
+    @GetMapping("/")
     public void showLogInPage() {
 
     }
 
-    @PostMapping(consumes =  "application/json")
+    @PostMapping(value = "/", consumes =  "application/json")
     public void authenticateUser(@RequestBody UserRegisterDTO userRegisterDTO) {
 
     }

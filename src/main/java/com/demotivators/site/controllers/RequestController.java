@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("/requests")
 public class RequestController {
-    @GetMapping()
+    @GetMapping("/")
     public void showRequests() {}
 
     @GetMapping("/friends")

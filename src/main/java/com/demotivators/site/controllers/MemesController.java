@@ -4,10 +4,10 @@ import com.demotivators.site.dto.CommentDTO;
 import com.demotivators.site.dto.MemeDTO;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(value = "/memes")
+@RestController("/memes")
 public class MemesController {
 
-    @GetMapping()
+    @GetMapping("/")
     public void showMemesScroll() {
 
     }
