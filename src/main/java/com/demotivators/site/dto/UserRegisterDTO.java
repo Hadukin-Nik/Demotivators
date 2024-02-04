@@ -1,28 +1,28 @@
 package com.demotivators.site.dto;
 
 public class UserRegisterDTO {
-    private String nickname;
+    private String login;
     private String password;
 
-    public UserRegisterDTO(String nickname, String password) {
-        this.nickname = nickname;
+    public UserRegisterDTO(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
     @Override
     public String toString() {
         return "UserRegisterDTO{" +
-                "nickname='" + nickname + '\'' +
+                "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getLogin() {
+        return login;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
