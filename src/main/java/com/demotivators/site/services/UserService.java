@@ -18,9 +18,12 @@ public class UserService {
     }
 
     public User createUser(UserRegisterDTO userDTO) {
-        User user = null;
+        User user = new User();
+        user.setPassword(userDTO.getPassword());
+        user.setLogin(userDTO.getLogin());
+
         try{
-            user = userDAO.addUser(userDTO);
+            user.setId(userDAO.addUser(userDTO));
         } catch (DuplicateKeyException exception) {
             throw new UserDuplicateException();
         }

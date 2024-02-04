@@ -14,26 +14,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class UserServiceTest {
-    private final UserRegisterDTO testUser1 = new UserRegisterDTO("123", "123");
+    private final UserRegisterDTO testUser1 = new UserRegisterDTO("login", "password");
+
     @Test
     void createUser_Happy_Path() {
         UserDAO userDAO = new UserDAO() {
             @Override
-            public User addUser(UserRegisterDTO userDTO) {
-                return null;
+            public Long addUser(UserRegisterDTO userDTO) {
+                return 1L;
             }
         };
 
         UserService userService = new UserService(userDAO);
 
-        assertNull(userService.createUser(testUser1));
+        User expectedUser = new User();
+        expectedUser.setId(1L);
+        expectedUser.setPassword(testUser1.getPassword());
+        expectedUser.setLogin(testUser1.getLogin());
+
+        assertEquals(expectedUser, userService.createUser(testUser1));
     }
 
     @Test
     void createUser_Duplicate_name() {
         UserDAO userDAO = new UserDAO() {
             @Override
-            public User addUser(UserRegisterDTO userDTO) {
+            public Long addUser(UserRegisterDTO userDTO) {
                 throw new DuplicateKeyException("");
             }
         };
