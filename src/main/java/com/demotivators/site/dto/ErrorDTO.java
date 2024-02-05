@@ -1,10 +1,9 @@
 package com.demotivators.site.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class ErrorDTO {
     private final String message;
 }
