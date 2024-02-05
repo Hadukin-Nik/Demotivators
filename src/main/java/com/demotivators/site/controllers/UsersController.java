@@ -17,7 +17,9 @@ public class UsersController {
     }
     @PostMapping(consumes = "application/json")
     public User add(@RequestBody UserRegisterDTO userRegisterDTO){
-        return userService.createUser(userRegisterDTO);
+        User user = userService.createUser(userRegisterDTO);
+        System.out.println(user);
+        return user;
     }
     @GetMapping("/table")
     public void showUsersTable() {}
