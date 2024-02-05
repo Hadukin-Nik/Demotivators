@@ -1,5 +1,10 @@
 package com.demotivators.site.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UserRegisterDTO {
     private String login;
     private String password;
@@ -17,19 +22,4 @@ public class UserRegisterDTO {
                 '}';
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

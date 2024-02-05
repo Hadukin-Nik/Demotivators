@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public class UserDAOImpl implements UserDAO {
     private final JdbcTemplate jdbcTemplate;
@@ -25,7 +27,9 @@ public class UserDAOImpl implements UserDAO {
     public Long addUser(UserRegisterDTO userDTO) {
         var namedParameters = new MapSqlParameterSource()
                 .addValue("login", userDTO.getLogin())
-                .addValue("password", userDTO.getPassword());
+                .addValue("password", userDTO.getPassword())
+                .addValue("creation_date", new Date());
+
 
         return (Long) insert.executeAndReturnKey(namedParameters);
     }

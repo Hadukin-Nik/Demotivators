@@ -18,9 +18,7 @@ public class UserService {
     }
 
     public User createUser(UserRegisterDTO userDTO) {
-        User user = new User();
-        user.setPassword(userDTO.getPassword());
-        user.setLogin(userDTO.getLogin());
+        User user = new User(userDTO.getLogin(), userDTO.getPassword());
 
         try{
             user.setId(userDAO.addUser(userDTO));

@@ -5,7 +5,7 @@ Alter database demotivators owner to postgres;
 
 CREATE TABLE public.users
 (
-    "id"            serial primary key,
+    "id"            bigserial primary key,
     "login"         varchar(40) NOT NULL unique,
     "creation_date" date        NOT NULL default current_date,
     "password"      varchar(40) NOT NULL
