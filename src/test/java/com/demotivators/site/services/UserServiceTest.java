@@ -63,8 +63,23 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser_invalid_password() {
+    void createUser_invalid_password_length() {
         UserDTO testUser2 = new UserDTO("login", "fuck");
+        UserDAO userDAO = new UserDAO() {
+            @Override
+            public Long addUser(UserDTO userDTO) {
+                return 1L;
+            }
+        };
+
+        UserService userService = new UserService(userDAO);
+
+        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
+    }
+
+    @Test
+    void createUser_invalid_password_symbols() {
+        UserDTO testUser2 = new UserDTO("login", "fucking_shit");
         UserDAO userDAO = new UserDAO() {
             @Override
             public Long addUser(UserDTO userDTO) {
