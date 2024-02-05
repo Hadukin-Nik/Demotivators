@@ -1,26 +1,26 @@
 package com.demotivators.site.dao;
 
-import com.demotivators.site.configuration.PropertiesOfDBConnection;
+import com.demotivators.site.configuration.DataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
-
 @Configuration
 @ComponentScan("com.demotivators.site.dao")
+@RequiredArgsConstructor
 public class SpringJdbcConfig {
-    @Autowired
-    PropertiesOfDBConnection propertiesOfDBConnection;
+
+    private final DataSource dataSource;
     @Bean
-    public DataSource postgresDataSource() {
+    public javax.sql.DataSource postgresDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(propertiesOfDBConnection.getDriverClassName());
-        dataSource.setUrl(propertiesOfDBConnection.getUrl());
-        dataSource.setUsername(propertiesOfDBConnection.getUsername());
-        dataSource.setPassword(propertiesOfDBConnection.getPassword());
+        dataSource.setDriverClassName(this.dataSource.getDriverClassName());
+        dataSource.setUrl(this.dataSource.getUrl());
+        dataSource.setUsername(this.dataSource.getUsername());
+        dataSource.setPassword(this.dataSource.getPassword());
 
         return dataSource;
     }

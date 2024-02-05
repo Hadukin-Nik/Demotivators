@@ -6,20 +6,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:connectionDB.properties")
+@PropertySource("classpath:application.properties")
 @Getter
-public class PropertiesOfDBConnection {
+public class DataSource {
 
-    @Value( "${dataSource.driverClassName}" )
+    @Value( "${spring.dataSource.driverClassName}" )
     private String driverClassName;
 
-    @Value( "${datasource.url}" )
+    @Value( "${spring.datasource.url}" )
     private String url;
 
-    @Value( "${datasource.username}" )
+    @Value( "${spring.datasource.username}" )
     private String username;
 
-    @Value( "${datasource.password}" )
+    @Value( "${spring.datasource.password}" )
     private String password;
 
 }
