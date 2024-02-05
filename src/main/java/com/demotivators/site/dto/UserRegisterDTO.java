@@ -1,10 +1,10 @@
 package com.demotivators.site.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserRegisterDTO {
     private String login;
     private String password;
@@ -13,13 +13,4 @@ public class UserRegisterDTO {
         this.login = login;
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "UserRegisterDTO{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
 }

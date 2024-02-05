@@ -1,12 +1,8 @@
 package com.demotivators.site.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 public class CollectionDTO {
     private String name;
 }
