@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class UserServiceTest {
-    private final UserDTO testUser1 = new UserDTO("login", "password");
+    private final UserDTO testUser1 = new UserDTO("login", "password123");
 
     @Test
     void createUser_Happy_Path() {
@@ -48,8 +48,8 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser_Validation_login_exception() {
-        UserDTO testUser2 = new UserDTO("fuck", "password");
+    void createUser_invalid_login() {
+        UserDTO testUser2 = new UserDTO("fuck", "password123");
         UserDAO userDAO = new UserDAO() {
             @Override
             public Long addUser(UserDTO userDTO) {
@@ -63,7 +63,7 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser_Validation_password_exception() {
+    void createUser_invalid_password() {
         UserDTO testUser2 = new UserDTO("login", "fuck");
         UserDAO userDAO = new UserDAO() {
             @Override
