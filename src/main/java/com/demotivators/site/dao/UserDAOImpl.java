@@ -1,13 +1,10 @@
 package com.demotivators.site.dao;
 
-import com.demotivators.site.dto.UserRegisterDTO;
-import com.demotivators.site.models.User;
+import com.demotivators.site.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -24,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Long addUser(UserRegisterDTO userDTO) {
+    public Long addUser(UserDTO userDTO) {
         var namedParameters = new MapSqlParameterSource()
                 .addValue("login", userDTO.getLogin())
                 .addValue("password", userDTO.getPassword())

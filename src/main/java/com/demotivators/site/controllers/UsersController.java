@@ -1,6 +1,6 @@
 package com.demotivators.site.controllers;
 
-import com.demotivators.site.dto.UserRegisterDTO;
+import com.demotivators.site.dto.UserDTO;
 import com.demotivators.site.models.User;
 import com.demotivators.site.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,8 @@ public class UsersController {
         this.userService = userService;
     }
     @PostMapping(consumes = "application/json")
-    public User add(@RequestBody UserRegisterDTO userRegisterDTO){
-        User user = userService.createUser(userRegisterDTO);
-        System.out.println(user);
-        return user;
+    public User add(@RequestBody UserDTO userDTO){
+        return userService.createUser(userDTO);
     }
     @GetMapping("/table")
     public void showUsersTable() {}

@@ -1,6 +1,6 @@
 package com.demotivators.site.controllers;
 
-import com.demotivators.site.dto.UserRegisterDTO;
+import com.demotivators.site.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
@@ -12,7 +12,7 @@ public class HelloController {
     }
 
     @PostMapping(consumes =  "application/json")
-    public void authenticateUser(@RequestBody UserRegisterDTO userRegisterDTO) {
+    public void authenticateUser(@RequestBody UserDTO userDTO) {
 
     }
 
