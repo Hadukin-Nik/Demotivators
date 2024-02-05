@@ -1,5 +1,6 @@
 package com.demotivators.site.dto;
 
+import com.demotivators.site.validation.StrongPassword;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -12,7 +13,7 @@ public class UserDTO {
     @NotNull(message = "Login cannot be null")
     private String login;
 
-    @Size(min = 5, max = 15, message = "Password must be between 5 and 15 characters")
+    @StrongPassword
     @NotNull(message = "Password cannot be null")
     private String password;
 }
