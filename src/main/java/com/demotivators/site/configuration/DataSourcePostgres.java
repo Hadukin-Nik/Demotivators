@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:application.properties")
 @Getter
-public class DataSource {
+public class DataSourcePostgres {
 
     @Value( "${spring.dataSource.driverClassName}" )
     private String driverClassName;
