@@ -4,6 +4,7 @@ import com.demotivators.site.dao.UserDAO;
 import com.demotivators.site.dto.UserDTO;
 import com.demotivators.site.models.User;
 import com.demotivators.site.services.exceptions.UserDuplicateException;
+import com.demotivators.site.services.exceptions.UserRegistrationValidationException;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -44,5 +45,35 @@ class UserServiceTest {
         UserService userService = new UserService(userDAO);
 
         assertThrows(UserDuplicateException.class, () -> userService.createUser(testUser1));
+    }
+
+    @Test
+    void createUser_Validation_login_exception() {
+        UserDTO testUser2 = new UserDTO("fuck", "password");
+        UserDAO userDAO = new UserDAO() {
+            @Override
+            public Long addUser(UserDTO userDTO) {
+                return 1L;
+            }
+        };
+
+        UserService userService = new UserService(userDAO);
+
+        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
+    }
+
+    @Test
+    void createUser_Validation_password_exception() {
+        UserDTO testUser2 = new UserDTO("login", "fuck");
+        UserDAO userDAO = new UserDAO() {
+            @Override
+            public Long addUser(UserDTO userDTO) {
+                return 1L;
+            }
+        };
+
+        UserService userService = new UserService(userDAO);
+
+        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
     }
 }
