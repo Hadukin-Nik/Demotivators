@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ComponentScan("com.demotivators.site.dao")
 @RequiredArgsConstructor
 public class JdbcConfig {
 
