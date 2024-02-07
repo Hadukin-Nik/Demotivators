@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Data
-@RequiredArgsConstructor
 public class User {
 
     private final String login;
@@ -20,9 +20,5 @@ public class User {
 
     private Long id;
 
-    @Bean
-    @Scope("singleton")
-    public User personSingleton() {
-        return new User("", "");
-    }
+    private Date creationDate;
 }

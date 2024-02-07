@@ -11,6 +11,17 @@ CREATE TABLE public.users
     "password"      varchar(40) NOT NULL
 );
 
-
 ALTER TABLE public.users
+    OWNER TO postgres;
+
+
+CREATE TABLE public.meme
+(
+    "id" bigserial primary key ,
+    "name" varchar(60) NOT NULL ,
+    "image" varchar(60) NOT NULL unique ,
+    "creation_date" date NOT NULL default current_date
+);
+
+ALTER TABLE public.meme
     OWNER TO postgres;
