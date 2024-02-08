@@ -5,6 +5,7 @@ import com.demotivators.site.dto.MemeDTO;
 import com.demotivators.site.models.Meme;
 import com.demotivators.site.models.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,48 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MemeServiceTest {
     @Test
     void createMeme_Happy_Path() {
-        MultipartFile multipartFile = new MultipartFile() {
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            @Override
-            public String getOriginalFilename() {
-                return null;
-            }
-
-            @Override
-            public String getContentType() {
-                return null;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public long getSize() {
-                return 0;
-            }
-
-            @Override
-            public byte[] getBytes() throws IOException {
-                return new byte[0];
-            }
-
-            @Override
-            public InputStream getInputStream() throws IOException {
-                return null;
-            }
-
-            @Override
-            public void transferTo(File dest) throws IOException, IllegalStateException {
-
-            }
-        };
-
+        MultipartFile multipartFile = new MockMultipartFile("file",new byte[]{});
         MemeDTO memeDTO = new MemeDTO("base_name", "base_photo");
         MemeDAO memeDAO = new MemeDAO() {
             @Override
