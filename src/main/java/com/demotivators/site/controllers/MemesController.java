@@ -3,12 +3,15 @@ package com.demotivators.site.controllers;
 import com.demotivators.site.configuration.MemeScrollProperties;
 import com.demotivators.site.dto.CommentDTO;
 import com.demotivators.site.dto.MemeDTO;
+import com.demotivators.site.models.Meme;
 import com.demotivators.site.services.MemeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @RestController()
@@ -22,8 +25,8 @@ public class MemesController {
     private final MemeScrollProperties memeScrollProperties;
 
     @GetMapping
-    public void showMemesScroll() {
-        System.out.println(memeScrollProperties.getMax_count_of_memes());
+    public List<Meme> showMemesScroll() {
+        return memeService.getMemeList();
     }
 
     @PostMapping(value = "/upload")
