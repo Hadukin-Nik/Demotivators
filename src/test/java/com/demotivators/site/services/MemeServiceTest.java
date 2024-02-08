@@ -1,7 +1,9 @@
 package com.demotivators.site.services;
 
 import com.demotivators.site.dao.MemeDAO;
+import com.demotivators.site.dao.UserDAO;
 import com.demotivators.site.dto.MemeDTO;
+import com.demotivators.site.dto.UserDTO;
 import com.demotivators.site.models.Meme;
 import com.demotivators.site.models.User;
 import com.demotivators.site.services.exceptions.WrongImageExtensionException;
@@ -78,5 +80,34 @@ class MemeServiceTest {
         MemeService memeService = new MemeService(fileStorageService, memeDAO);
 
         assertThrows(WrongImageExtensionException.class, () -> memeService.createMeme(memeDTO, multipartFile));
+    }
+
+    @Test
+    void get_Meme_List() {
+        List<Meme> expectedMemes = List.of(new Meme("122", "123"), new Meme("124", "125"));
+
+        MultipartFile multipartFile = new MockMultipartFile("file",new byte[]{});
+        MemeDAO memeDAO = new MemeDAO() {
+            @Override
+            public Long addMeme(MemeDTO memeDTO) {
+                return null;
+            }
+
+            @Override
+            public List<Meme> getList() {
+                return expectedMemes;
+            }
+        };
+
+        FileStorageService fileStorageService = new FileStorageService() {
+            @Override
+            public String storeFile(MultipartFile file) {
+                return null;
+            }
+        };
+
+        MemeService memeService = new MemeService(fileStorageService, memeDAO);
+
+        assertEquals(expectedMemes, memeService.getMemeList());
     }
 }
