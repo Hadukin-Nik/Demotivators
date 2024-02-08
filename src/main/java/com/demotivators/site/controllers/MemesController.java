@@ -1,5 +1,6 @@
 package com.demotivators.site.controllers;
 
+import com.demotivators.site.configuration.MemeScrollProperties;
 import com.demotivators.site.dto.CommentDTO;
 import com.demotivators.site.dto.MemeDTO;
 import com.demotivators.site.services.MemeService;
@@ -18,10 +19,11 @@ public class MemesController {
     private final MemeService memeService;
 
     private final ObjectMapper objectMapper;
+    private final MemeScrollProperties memeScrollProperties;
 
     @GetMapping
     public void showMemesScroll() {
-
+        System.out.println(memeScrollProperties.getMax_count_of_memes());
     }
 
     @PostMapping(value = "/upload")

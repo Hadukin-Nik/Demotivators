@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemeService {
@@ -20,14 +22,15 @@ public class MemeService {
         String fileName = fileStorageService.storeFile(file);
 
         memeDTO.setImage(fileName);
+
         Meme meme = new Meme(memeDTO.getName(), fileName);
 
-        try{
-            meme.setId(memeDAO.addMeme(memeDTO));
-        } catch (DuplicateKeyException exception) {
-            throw new UserDuplicateException();
-        }
+        meme.setId(memeDAO.addMeme(memeDTO));
 
         return meme;
+    }
+
+    public List<Meme> getMemeList() {
+        return memeDAO.getList();
     }
 }
