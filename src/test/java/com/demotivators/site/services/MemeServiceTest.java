@@ -77,7 +77,7 @@ class MemeServiceTest {
     }
 
     @Test
-    void get_List() {
+    void getList_Happy_test() {
         List<Meme> expectedMemes = List.of(new Meme("122", "123"), new Meme("124", "125"));
 
         MultipartFile multipartFile = new MockMultipartFile("file",new byte[]{});
