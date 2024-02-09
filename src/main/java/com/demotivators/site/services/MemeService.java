@@ -3,12 +3,9 @@ package com.demotivators.site.services;
 import com.demotivators.site.dao.MemeDAO;
 import com.demotivators.site.dto.MemeDTO;
 import com.demotivators.site.models.Meme;
-import com.demotivators.site.services.exceptions.UserDuplicateException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class MemeService {
     private final FileStorageService fileStorageService;
     private final MemeDAO memeDAO;
 
-    public Meme createMeme(MemeDTO memeDTO, MultipartFile file) {
+    public Meme create(MemeDTO memeDTO, MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
         memeDTO.setImage(fileName);
@@ -30,7 +27,7 @@ public class MemeService {
         return meme;
     }
 
-    public List<Meme> getMemeList() {
+    public List<Meme> getList() {
         return memeDAO.getList();
     }
 }

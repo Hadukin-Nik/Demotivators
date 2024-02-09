@@ -17,7 +17,7 @@ class UserServiceTest {
     private final UserDTO testUser1 = new UserDTO("login", "password123");
 
     @Test
-    void createUser_Happy_Path() {
+    void create_Happy_Path() {
         UserDAO userDAO = new UserDAO() {
             @Override
             public Long addUser(UserDTO userDTO) {
@@ -30,11 +30,11 @@ class UserServiceTest {
         User expectedUser = new User(testUser1.getLogin(), testUser1.getPassword());
         expectedUser.setId(1L);
 
-        assertEquals(expectedUser, userService.createUser(testUser1));
+        assertEquals(expectedUser, userService.create(testUser1));
     }
 
     @Test
-    void createUser_Duplicate_name() {
+    void create_Duplicate_name() {
         UserDAO userDAO = new UserDAO() {
             @Override
             public Long addUser(UserDTO userDTO) {
@@ -44,11 +44,11 @@ class UserServiceTest {
 
         UserService userService = new UserService(userDAO);
 
-        assertThrows(UserDuplicateException.class, () -> userService.createUser(testUser1));
+        assertThrows(UserDuplicateException.class, () -> userService.create(testUser1));
     }
 
     @Test
-    void createUser_invalid_login() {
+    void create_invalid_login() {
         UserDTO testUser2 = new UserDTO("fuck", "password123");
         UserDAO userDAO = new UserDAO() {
             @Override
@@ -59,11 +59,11 @@ class UserServiceTest {
 
         UserService userService = new UserService(userDAO);
 
-        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
+        assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
 
     @Test
-    void createUser_invalid_password_length() {
+    void create_invalid_password_length() {
         UserDTO testUser2 = new UserDTO("login", "fuck");
         UserDAO userDAO = new UserDAO() {
             @Override
@@ -74,11 +74,11 @@ class UserServiceTest {
 
         UserService userService = new UserService(userDAO);
 
-        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
+        assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
 
     @Test
-    void createUser_invalid_password_symbols() {
+    void create_invalid_password_symbols() {
         UserDTO testUser2 = new UserDTO("login", "fucking_shit");
         UserDAO userDAO = new UserDAO() {
             @Override
@@ -89,6 +89,6 @@ class UserServiceTest {
 
         UserService userService = new UserService(userDAO);
 
-        assertThrows(UserRegistrationValidationException.class, () -> userService.createUser(testUser2));
+        assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
 }

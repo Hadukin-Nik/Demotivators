@@ -26,7 +26,7 @@ public class MemesController {
 
     @GetMapping
     public List<Meme> showMemesScroll() {
-        return memeService.getMemeList();
+        return memeService.getList();
     }
 
     @PostMapping(value = "/upload")
@@ -36,7 +36,7 @@ public class MemesController {
         try {
             response = objectMapper.readValue(memeDTO, MemeDTO.class);
 
-            memeService.createMeme(response, file);
+            memeService.create(response, file);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

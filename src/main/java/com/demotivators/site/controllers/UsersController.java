@@ -4,7 +4,6 @@ import com.demotivators.site.dto.UserDTO;
 import com.demotivators.site.models.User;
 import com.demotivators.site.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
@@ -15,7 +14,7 @@ public class UsersController {
 
     @PostMapping(consumes = "application/json")
     public User add(@RequestBody UserDTO userDTO){
-        return userService.createUser(userDTO);
+        return userService.create(userDTO);
     }
     @GetMapping("/table")
     public void showUsersTable() {}
