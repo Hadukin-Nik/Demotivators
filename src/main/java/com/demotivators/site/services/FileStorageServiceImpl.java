@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import com.demotivators.site.configuration.FileStorageProperties;
@@ -37,7 +38,8 @@ public class FileStorageServiceImpl implements FileStorageService {
         // Normalize file name
         String filenameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
-        if(filenameExtension != null && !(filenameExtension.equals("jpg") || filenameExtension.equals("jpeg") || filenameExtension.equals("png") || filenameExtension.equals("webp"))) {
+        final Set<String> allowedExtensions = Set.of("jpg", "jpeg", "png", "webp");
+        if(!allowedExtensions.contains(filenameExtension)) {
             throw new WrongImageExtensionException();
         }
 
