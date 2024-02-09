@@ -37,7 +37,7 @@ public class FileStorageServiceImpl implements FileStorageService {
         // Normalize file name
         String filenameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
-        if(!(filenameExtension.equals("jpg") || filenameExtension.equals("jpeg") || filenameExtension.equals("png") || filenameExtension.equals("webp"))) {
+        if(filenameExtension != null && !(filenameExtension.equals("jpg") || filenameExtension.equals("jpeg") || filenameExtension.equals("png") || filenameExtension.equals("webp"))) {
             throw new WrongImageExtensionException();
         }
 

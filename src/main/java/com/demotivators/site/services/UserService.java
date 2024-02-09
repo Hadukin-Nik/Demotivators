@@ -6,6 +6,7 @@ import com.demotivators.site.models.User;
 import com.demotivators.site.services.exceptions.UserDuplicateException;
 import com.demotivators.site.services.exceptions.UserRegistrationValidationException;
 import jakarta.validation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,9 @@ public class UserService {
     private final UserDAO userDAO;
     private final Validator validator;
 
-    public UserService(UserDAO userDAO) {
+    public UserService(UserDAO userDAO, Validator validator) {
         this.userDAO = userDAO;
-
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
+        this.validator = validator;
     }
 
     public User create(UserDTO userDTO) {
@@ -26,9 +25,14 @@ public class UserService {
 
         var violations = validator.validate(userDTO) ;
 
+        StringBuilder stringBuilderForException = new StringBuilder();
         for (var violation : violations) {
-            throw new UserRegistrationValidationException(violation.getMessage());
+            stringBuilderForException.append(violation.getMessage() + "\n");
         }
+        if(!stringBuilderForException.equals("")) {
+            throw new UserRegistrationValidationException(stringBuilderForException.toString());
+        }
+
 
         try{
             user.setId(userDAO.addUser(userDTO));
