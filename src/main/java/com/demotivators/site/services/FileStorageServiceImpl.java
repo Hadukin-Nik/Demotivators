@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileStorageServiceImpl implements FileStorageService {
 
     private final Path fileStorageLocation;
-    private final static Set<String> allowedExtensions = Set.of("jpg", "jpeg", "png", "webp");
+    private static final Set<String> allowedExtensions = Set.of("jpg", "jpeg", "png", "webp");
 
 
     @Autowired
