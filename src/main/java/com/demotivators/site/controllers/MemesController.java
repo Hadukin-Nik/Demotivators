@@ -41,7 +41,6 @@ public class MemesController {
             throw new RuntimeException(e);
         }
 
-        //response.setImage(file.getOriginalFilename());
         return response;
     }
 
