@@ -7,33 +7,36 @@ import com.demotivators.site.services.exceptions.UserDuplicateException;
 import com.demotivators.site.services.exceptions.UserRegistrationValidationException;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@ExtendWith(SpringExtension.class)
 class UserServiceTest {
     private final UserDTO testUser1 = new UserDTO("login", "password123");
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-    private final UserDAO emptyDAO = new UserDAO() {
-        @Override
-        public Long addUser(UserDTO userDTO) {
-            return 1L;
-        }
+    @MockBean
+    private UserDAO emptyDAO;
 
-        @Override
-        public User getUserByToken(String token) {
-            return null;
-        }
-    };
+    private UserService userService;
+    @BeforeEach
+    private void setUp() {
+        userService = new UserService(emptyDAO, validator);
+
+        when(emptyDAO.addUser(any(UserDTO.class))).thenReturn(1L);
+    }
 
     @Test
     void create_Happy_Path() {
-        UserService userService = new UserService(emptyDAO, validator);
-
         User expectedUser = new User(testUser1.getLogin(), testUser1.getPassword());
         expectedUser.setId(1L);
 
@@ -42,19 +45,7 @@ class UserServiceTest {
 
     @Test
     void create_Duplicate_name() {
-        UserDAO userDAO = new UserDAO() {
-            @Override
-            public Long addUser(UserDTO userDTO) {
-                throw new DuplicateKeyException("");
-            }
-
-            @Override
-            public User getUserByToken(String token) {
-                return null;
-            }
-        };
-
-        UserService userService = new UserService(userDAO, validator);
+        when(emptyDAO.addUser(any(UserDTO.class))).thenThrow(new UserDuplicateException());
 
         assertThrows(UserDuplicateException.class, () -> userService.create(testUser1));
     }
@@ -63,8 +54,6 @@ class UserServiceTest {
     void create_invalid_login() {
         UserDTO testUser2 = new UserDTO("fuck", "password123");
 
-        UserService userService = new UserService(emptyDAO, validator);
-
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
 
@@ -72,16 +61,12 @@ class UserServiceTest {
     void create_invalid_password_length() {
         UserDTO testUser2 = new UserDTO("login", "fuck");
 
-        UserService userService = new UserService(emptyDAO, validator);
-
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
 
     @Test
     void create_invalid_password_symbols() {
         UserDTO testUser2 = new UserDTO("login", "fucking_shit");
-
-        UserService userService = new UserService(emptyDAO, validator);
 
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
