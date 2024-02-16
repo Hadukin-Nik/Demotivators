@@ -8,7 +8,8 @@ CREATE TABLE public.users
     "id"            bigserial primary key,
     "login"         varchar(40) NOT NULL unique,
     "creation_date" date        NOT NULL default current_date,
-    "password"      varchar(40) NOT NULL
+    "password"      varchar(40) NOT NULL,
+    "token"        varchar(40) NOT NULL unique
 );
 
 ALTER TABLE public.users
@@ -17,10 +18,10 @@ ALTER TABLE public.users
 
 CREATE TABLE public.meme
 (
-    "id" bigserial primary key ,
-    "name" varchar(60) NOT NULL ,
-    "image" varchar(60) NOT NULL unique ,
-    "creation_date" date NOT NULL default current_date
+    "id"            bigserial primary key,
+    "name"          varchar(60) NOT NULL,
+    "image"         varchar(60) NOT NULL unique,
+    "creation_date" date        NOT NULL default current_date
 );
 
 ALTER TABLE public.meme

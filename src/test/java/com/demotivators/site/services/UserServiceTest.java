@@ -18,12 +18,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
     private final UserDTO testUser1 = new UserDTO("login", "password123");
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    private final UserDAO emptyDAO = new UserDAO() {
+        @Override
+        public Long addUser(UserDTO userDTO) {
+            return 1L;
+        }
+
+        @Override
+        public User getUserByToken(String token) {
+            return null;
+        }
+    };
 
     @Test
     void create_Happy_Path() {
-        UserDAO userDAO = userDTO -> 1L;
-
-        UserService userService = new UserService(userDAO, validator);
+        UserService userService = new UserService(emptyDAO, validator);
 
         User expectedUser = new User(testUser1.getLogin(), testUser1.getPassword());
         expectedUser.setId(1L);
@@ -33,8 +42,16 @@ class UserServiceTest {
 
     @Test
     void create_Duplicate_name() {
-        UserDAO userDAO = userDTO -> {
-            throw new DuplicateKeyException("");
+        UserDAO userDAO = new UserDAO() {
+            @Override
+            public Long addUser(UserDTO userDTO) {
+                throw new DuplicateKeyException("");
+            }
+
+            @Override
+            public User getUserByToken(String token) {
+                return null;
+            }
         };
 
         UserService userService = new UserService(userDAO, validator);
@@ -45,9 +62,8 @@ class UserServiceTest {
     @Test
     void create_invalid_login() {
         UserDTO testUser2 = new UserDTO("fuck", "password123");
-        UserDAO userDAO = userDTO -> 1L;
 
-        UserService userService = new UserService(userDAO, validator);
+        UserService userService = new UserService(emptyDAO, validator);
 
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
@@ -55,9 +71,8 @@ class UserServiceTest {
     @Test
     void create_invalid_password_length() {
         UserDTO testUser2 = new UserDTO("login", "fuck");
-        UserDAO userDAO = userDTO -> 1L;
 
-        UserService userService = new UserService(userDAO, validator);
+        UserService userService = new UserService(emptyDAO, validator);
 
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
@@ -65,9 +80,8 @@ class UserServiceTest {
     @Test
     void create_invalid_password_symbols() {
         UserDTO testUser2 = new UserDTO("login", "fucking_shit");
-        UserDAO userDAO = userDTO -> 1L;
 
-        UserService userService = new UserService(userDAO, validator);
+        UserService userService = new UserService(emptyDAO, validator);
 
         assertThrows(UserRegistrationValidationException.class, () -> userService.create(testUser2));
     }
