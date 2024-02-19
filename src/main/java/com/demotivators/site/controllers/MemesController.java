@@ -49,12 +49,12 @@ public class MemesController {
 
     }
 
-    @PatchMapping(value = "/{id}", consumes = "application/json")
+    @PutMapping(value = "/{id}", consumes = "application/json")
     public void redactMeme(@PathVariable int memeId) {
 
     }
 
-    @PutMapping(value = "/{id}", consumes = "application/json")
+    @PutMapping(value = "/{id}/comments", consumes = "application/json")
     public void commentMeme(@PathVariable int memeId, @RequestBody CommentDTO commentDTO) {
 
     }
