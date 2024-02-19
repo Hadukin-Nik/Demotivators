@@ -12,11 +12,8 @@ public class RequestController {
     @GetMapping("/friends")
     public void showFriends() {}
 
-    @DeleteMapping(value = "/{id}", consumes = "application/json")
-    public void deleteRequest(@PathVariable int requestID) {}
-
-    @PatchMapping(value = "/{id}", consumes = "application/json")
-    public void approveRequest(@PathVariable int requestID) {}
+    @PutMapping(value = "/{id}", consumes = "application/json")
+    public void updateRequest(@PathVariable int requestID) {}
 
 
 }
