@@ -31,10 +31,10 @@ public class UserService {
         for (var violation : violations) {
             stringBuilderForException.append(violation.getMessage() + "\n");
         }
-        if(!stringBuilderForException.equals("")) {
+
+        if(!stringBuilderForException.isEmpty()) {
             throw new UserRegistrationValidationException(stringBuilderForException.toString());
         }
-
 
         try{
             user.setId(userDAO.addUser(userDTO));
