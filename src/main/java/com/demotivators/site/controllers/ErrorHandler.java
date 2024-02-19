@@ -1,5 +1,6 @@
 package com.demotivators.site.controllers;
 
+import com.demotivators.site.controllers.filter.exceptions.WrongToken;
 import com.demotivators.site.dto.ErrorDTO;
 import com.demotivators.site.services.exceptions.*;
 import org.springframework.http.HttpStatus;

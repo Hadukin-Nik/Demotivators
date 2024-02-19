@@ -1,5 +1,6 @@
 package com.demotivators.site.controllers.filter;
 
+import com.demotivators.site.controllers.filter.exceptions.WrongToken;
 import com.demotivators.site.dao.UserDAO;
 import com.demotivators.site.models.User;
 import com.demotivators.site.models.UserAuthData;
@@ -7,7 +8,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 
@@ -26,7 +26,15 @@ public class Token implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
 
-        User userByToken = userDAO.getUserByToken(httpRequest.getHeader("Token"));
+        String token = httpRequest.getHeader("Token");
+
+        if(token == null) {
+            throw new WrongToken();
+        }
+
+        User userByToken = userDAO.getUserByToken(token);
+
+
 
         userAuthData = new UserAuthData(userByToken.getToken());
         userAuthData.setLogin(userByToken.getLogin());
