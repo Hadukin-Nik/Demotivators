@@ -21,12 +21,10 @@ public class ErrorFilter implements Filter {
             chain.doFilter(request, response);
         } catch(RuntimeException runtimeException) {
             HttpServletResponse httpResponse = (HttpServletResponse ) response;
-            httpResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
             if(runtimeException instanceof FilterError) {
+                httpResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
                 httpResponse.getWriter().write(getJson((FilterError) runtimeException));
-            } else {
-                httpResponse.getWriter().write("Unknown issue");
             }
         }
     }
