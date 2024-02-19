@@ -24,10 +24,17 @@ public class ErrorFilter implements Filter {
             httpResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
             if(runtimeException instanceof FilterError) {
-                httpResponse.getWriter().write(((FilterError) runtimeException).getMessage());
+                httpResponse.getWriter().write(getJson((FilterError) runtimeException));
             } else {
                 httpResponse.getWriter().write("Unknown issue");
             }
         }
+    }
+
+    private String getJson(FilterError filterError) {
+        String string = "{\n" +
+                        "  \"message\": \""+filterError.getMessage()+"\"\n" +
+                        "}";
+        return string;
     }
 }
