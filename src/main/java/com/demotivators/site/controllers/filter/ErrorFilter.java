@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
 @Order(value = 0)
 public class ErrorFilter implements Filter {
     @Override

@@ -1,6 +1,5 @@
 package com.demotivators.site.controllers;
 
-import com.demotivators.site.controllers.filter.exceptions.WrongToken;
 import com.demotivators.site.dto.ErrorDTO;
 import com.demotivators.site.services.exceptions.*;
 import org.springframework.http.HttpStatus;
@@ -33,11 +32,5 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleCustomException(WrongImageExtensionException ce) {
         return new ErrorDTO("This file have wrong extension");
-    }
-
-    @ExceptionHandler(WrongToken.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO handleCustomException(WrongToken ce) {
-        return new ErrorDTO("Your Token is invalid, please authorise again");
     }
 }
