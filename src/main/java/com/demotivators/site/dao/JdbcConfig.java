@@ -1,9 +1,8 @@
 package com.demotivators.site.dao;
 
-import com.demotivators.site.configuration.DataSourcePostgres;
+import com.demotivators.site.configuration.DataSourcePostgresProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -11,14 +10,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @RequiredArgsConstructor
 public class JdbcConfig {
 
-    private final DataSourcePostgres dataSourcePostgres;
+    private final DataSourcePostgresProperties dataSourcePostgresProperties;
     @Bean
     public javax.sql.DataSource postgresDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(this.dataSourcePostgres.getDriverClassName());
-        dataSource.setUrl(this.dataSourcePostgres.getUrl());
-        dataSource.setUsername(this.dataSourcePostgres.getUsername());
-        dataSource.setPassword(this.dataSourcePostgres.getPassword());
+        dataSource.setDriverClassName(this.dataSourcePostgresProperties.getDriverClassName());
+        dataSource.setUrl(this.dataSourcePostgresProperties.getUrl());
+        dataSource.setUsername(this.dataSourcePostgresProperties.getUsername());
+        dataSource.setPassword(this.dataSourcePostgresProperties.getPassword());
 
         return dataSource;
     }
