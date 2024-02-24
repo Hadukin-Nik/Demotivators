@@ -3,10 +3,7 @@ package com.demotivators.site.dao;
 import com.demotivators.site.dto.UserDTO;
 import com.demotivators.site.models.User;
 import com.demotivators.site.models.UserDataBase;
-import com.demotivators.site.services.exceptions.WrongToken;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,8 +13,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Repository
